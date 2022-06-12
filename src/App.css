@@ -9,7 +9,34 @@
 }
 
 .game {
-  padding: 100px;
+  padding: 100%;
+}
+.titleDiv {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.title {
+  text-align: center;
+  color: #ffffff;
+  font-size: 75px;
+  font-weight: 800;
+  margin: 0;
+  padding: 0 20px;
+  z-index: 99;
+  background-color: #57407c;
+  /* position: relative; */
+}
+
+.titleLine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 2px;
+  width: 100%;
+  background-color: #3d2963;
+  /* z-index: ; */
 }
 
 .gameHeader {
@@ -22,16 +49,23 @@
 .newGame,
 .score {
   background-color: #3d2963;
-  padding: 10px;
-  font-size: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
   color: #ffffffa2;
   border-radius: 10px;
   cursor: pointer;
 }
 
+.newGame:hover {
+  background-color: #ed5471;
+  color: #3d2963;
+}
+
 .board {
-  width: 400px;
-  height: 400px;
+  max-width: 400px;
+  max-height: 400px;
+  width: calc(100vw - 20px);
+  height: calc(100vw - 20px);
 
   /* background-color: #cdc1b5; */
   /* border: 5px solid transparent; */
@@ -66,6 +100,38 @@
   height: 400px;
 }
 
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  gap: 35px;
+  color: #ffffff;
+}
+
+.footerBold {
+  font-weight: 600;
+}
+.keys {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.iconsDiv {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.footerIcon {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @keyframes newTile {
   0% {
     transform: scale(0);
@@ -75,5 +141,17 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .tile {
+    width: calc((100vw - 20px) / 4 - 10px);
+    height: calc((100vw - 20px) / 4 - 10px);
+  }
+
+  .tileImg {
+    width: calc((100vw - 20px) / 4 - 10px);
+    height: calc((100vw - 20px) / 4 - 10px);
   }
 }

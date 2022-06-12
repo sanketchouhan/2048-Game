@@ -4,7 +4,7 @@ export const checkGameWon = (board, value) => {
   let wonFlag = false;
   for (let r = 0; r < board.length; r++) {
     for (let c = 0; c < board[r].length; c++) {
-      if (board[r][c] === value) {
+      if (board[r][c].value === value) {
         wonFlag = true;
       }
     }
@@ -17,16 +17,16 @@ export const checkGameFinished = (board) => {
   if (getEmptyTiles(board).length !== 0) return false;
   const _oldBoard = cloneDeep(board);
   let _board = cloneDeep(board);
-  if (JSON.stringify(_oldBoard) !== JSON.stringify(slideLeft(_board).board))
+  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideLeft(_board).board).map(b => b.value)))
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify(_oldBoard) !== JSON.stringify(slideRight(_board).board))
+  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideRight(_board).board).map(b => b.value)))
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify(_oldBoard) !== JSON.stringify(slideUp(_board).board))
+  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideUp(_board).board).map(b => b.value)))
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify(_oldBoard) !== JSON.stringify(slideDown(_board).board))
+  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideDown(_board).board).map(b => b.value)))
     return false;
 
   return true;
@@ -95,7 +95,7 @@ export const slideTiles = (board, direction) => {
     obj = slideDown(board);
   }
 
-  if (JSON.stringify(_oldBoard) !== JSON.stringify(obj.board))
+  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...obj.board).map(b => b.value)))
     obj.board = addTile(obj.board);
   return obj;
 };

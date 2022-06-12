@@ -1,6 +1,12 @@
 import React from "react";
 import { addTile, checkGameFinished, checkGameWon, slideTiles } from "../utils";
 import Board from "./Board";
+import {
+  IoChevronUpOutline,
+  IoChevronDownOutline,
+  IoChevronBackOutline,
+  IoChevronForwardOutline,
+} from "react-icons/io5";
 
 var cloneDeep = require("lodash.clonedeep");
 
@@ -111,6 +117,10 @@ function Game() {
       onTouchMove={(e) => touchMoveEvent(e)}
       onTouchEnd={(e) => touchEndEvent()}
     >
+      <div className="titleDiv">
+        <span className="titleLine" />
+        <h2 className="title">2048</h2>
+      </div>
       <div className="gameHeader">
         <div className="newGame" onClick={() => resetGame()}>
           New Game
@@ -128,6 +138,30 @@ function Game() {
       ) : (
         <Board board={board} />
       )}
+      <div className="footer">
+        <div className="keys">
+          <div className="iconsDiv">
+            <div className="footerIcon">
+              <IoChevronUpOutline size={24} />
+            </div>
+          </div>
+          <div className="iconsDiv">
+            <div className="footerIcon">
+              <IoChevronBackOutline size={24} />
+            </div>
+            <div className="footerIcon">
+              <IoChevronDownOutline size={24} />
+            </div>
+            <div className="footerIcon">
+              <IoChevronForwardOutline size={24} />
+            </div>
+          </div>
+        </div>
+        <div>
+          Join the numbers and get the{" "}
+          <span className="footerBold">2048 tile!</span>
+        </div>
+      </div>
     </div>
   );
 }
