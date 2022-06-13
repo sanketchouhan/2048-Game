@@ -7,6 +7,8 @@ import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
 } from "react-icons/io5";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 var cloneDeep = require("lodash.clonedeep");
 
@@ -19,6 +21,7 @@ function Game() {
       .map((x) => Array(GRID_SIZE).fill({ value: 0, newTile: false }))
   );
   const [score, setScore] = React.useState(0);
+  const [bestScore, setBestScore] = React.useState("--");
   const [gameWon, setGameWon] = React.useState(false);
   const [gamefinish, setGameFinish] = React.useState(false);
 
@@ -63,14 +66,6 @@ function Game() {
     }
   };
 
-  React.useEffect(() => {
-    window.addEventListener("keydown", handleKeyUp);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyUp);
-    };
-  }, [handleKeyUp]);
-
   const addInitialTiles = (board) => {
     let newBoard = cloneDeep(board);
     newBoard = addTile(newBoard);
@@ -110,6 +105,27 @@ function Game() {
     addInitialTiles(board);
   }, []);
 
+  React.useEffect(() => {
+    window.addEventListener("keydown", handleKeyUp);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyUp);
+    };
+  }, [handleKeyUp]);
+
+  React.useEffect(() => {
+    getDoc(doc(db, "2048-game", "best-game")).then((doc) => {
+      setBestScore(doc.data().score);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    if (score > bestScore) {
+      updateDoc(doc(db, "2048-game", "best-game"), { score: score });
+      setBestScore(score);
+    }
+  }, [score]);
+
   return (
     <div
       className="game"
@@ -125,7 +141,17 @@ function Game() {
         <div className="newGame" onClick={() => resetGame()}>
           New Game
         </div>
-        <div className="score">Score: {score}</div>
+        {/* <div className="score">Score: {score}</div> */}
+        <div className="scoresDiv">
+          <div className="scoresDark">
+            <div className="scoresTitle">Score</div>
+            <div>{score}</div>
+          </div>
+          <div>
+            <div className="scoresTitle">Best Score</div>
+            <div>{bestScore}</div>
+          </div>
+        </div>
       </div>
       {gameWon ? (
         <img src={require(`../assets/2048.gif`)} alt="won" className="wonImg" />
@@ -141,18 +167,30 @@ function Game() {
       <div className="footer">
         <div className="keys">
           <div className="iconsDiv">
-            <div className="footerIcon">
+            <div
+              className="footerIcon"
+              onClick={() => handleKeyUp({ code: "ArrowUp" })}
+            >
               <IoChevronUpOutline size={24} />
             </div>
           </div>
           <div className="iconsDiv">
-            <div className="footerIcon">
+            <div
+              className="footerIcon"
+              onClick={() => handleKeyUp({ code: "ArrowLeft" })}
+            >
               <IoChevronBackOutline size={24} />
             </div>
-            <div className="footerIcon">
+            <div
+              className="footerIcon"
+              onClick={() => handleKeyUp({ code: "ArrowDown" })}
+            >
               <IoChevronDownOutline size={24} />
             </div>
-            <div className="footerIcon">
+            <div
+              className="footerIcon"
+              onClick={() => handleKeyUp({ code: "ArrowRight" })}
+            >
               <IoChevronForwardOutline size={24} />
             </div>
           </div>

@@ -46,14 +46,32 @@
   border: 5px solid transparent;
   margin-bottom: 10px;
 }
-.newGame,
-.score {
+
+.newGame {
   background-color: #3d2963;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0 20px;
+  font-size: 18px;
+  align-self: normal;
+  display: flex;
+  align-items: center;
   color: #ffffffa2;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.scoresDiv {
+  display: flex;
+  gap: 15px;
+  padding: 5px 20px;
+  color: #ffffffa2;
+  border-radius: 10px;
+  background-color: #3d2963;
+}
+.scoresDark {
+  color: #ffffff;
+}
+.scoresTitle {
+  font-size: 12px;
 }
 
 .newGame:hover {
@@ -130,6 +148,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 @keyframes newTile {
