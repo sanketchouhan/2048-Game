@@ -7,7 +7,7 @@ import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
 } from "react-icons/io5";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
 var cloneDeep = require("lodash.clonedeep");
@@ -21,7 +21,7 @@ function Game() {
       .map((x) => Array(GRID_SIZE).fill({ value: 0, newTile: false }))
   );
   const [score, setScore] = React.useState(0);
-  const [bestScore, setBestScore] = React.useState("--");
+  const [bestScore, setBestScore] = React.useState(0);
   const [gameWon, setGameWon] = React.useState(false);
   const [gamefinish, setGameFinish] = React.useState(false);
 
@@ -114,9 +114,11 @@ function Game() {
   }, [handleKeyUp]);
 
   React.useEffect(() => {
-    getDoc(doc(db, "2048-game", "best-game")).then((doc) => {
+    const unsub = onSnapshot(doc(db, "2048-game", "best-game"), (doc) => {
       setBestScore(doc.data().score);
     });
+
+    return () => unsub();
   }, []);
 
   React.useEffect(() => {
@@ -149,7 +151,7 @@ function Game() {
           </div>
           <div>
             <div className="scoresTitle">Best Score</div>
-            <div>{bestScore}</div>
+            <div>{bestScore == 0 ? "--" : bestScore}</div>
           </div>
         </div>
       </div>
