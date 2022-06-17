@@ -16,17 +16,30 @@ export const checkGameFinished = (board) => {
   // let isFinished = false;
   if (getEmptyTiles(board).length !== 0) return false;
   const _oldBoard = cloneDeep(board);
+  console.log([].concat(..._oldBoard).map((b) => b.value));
   let _board = cloneDeep(board);
-  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideLeft(_board).board).map(b => b.value)))
+  if (
+    JSON.stringify([].concat(..._oldBoard).map((b) => b.value)) !==
+    JSON.stringify([].concat(...slideLeft(_board).board).map((b) => b.value))
+  )
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideRight(_board).board).map(b => b.value)))
+  if (
+    JSON.stringify([].concat(..._oldBoard).map((b) => b.value)) !==
+    JSON.stringify([].concat(...slideRight(_board).board).map((b) => b.value))
+  )
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideUp(_board).board).map(b => b.value)))
+  if (
+    JSON.stringify([].concat(..._oldBoard).map((b) => b.value)) !==
+    JSON.stringify([].concat(...slideUp(_board).board).map((b) => b.value))
+  )
     return false;
   _board = cloneDeep(board);
-  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...slideDown(_board).board).map(b => b.value)))
+  if (
+    JSON.stringify([].concat(..._oldBoard).map((b) => b.value)) !==
+    JSON.stringify([].concat(...slideDown(_board).board).map((b) => b.value))
+  )
     return false;
 
   return true;
@@ -37,8 +50,21 @@ export const addTile = (board) => {
   const emptyTiles = getEmptyTiles(board);
   if (emptyTiles.length) {
     const idx = Math.floor(Math.random() * emptyTiles.length);
+    const maxValue = Math.max(...[].concat(...board).map((b) => b.value));
+    const tileValue =
+      maxValue <= 128
+        ? Math.random() < 0.5
+          ? 2
+          : 4
+        : maxValue <= 512
+        ? Math.random() < 0.5
+          ? 4
+          : 8
+        : Math.random() < 0.5
+        ? 8
+        : 16;
     board[emptyTiles[idx].r][emptyTiles[idx].c] = {
-      value: Math.random() < 0.6 ? 2 : 4,
+      value: tileValue,
       newTile: true,
     };
   }
@@ -95,7 +121,10 @@ export const slideTiles = (board, direction) => {
     obj = slideDown(board);
   }
 
-  if (JSON.stringify([].concat(..._oldBoard).map(b => b.value)) !== JSON.stringify([].concat(...obj.board).map(b => b.value)))
+  if (
+    JSON.stringify([].concat(..._oldBoard).map((b) => b.value)) !==
+    JSON.stringify([].concat(...obj.board).map((b) => b.value))
+  )
     obj.board = addTile(obj.board);
   return obj;
 };

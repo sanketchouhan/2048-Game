@@ -151,7 +151,7 @@ function Game() {
           </div>
           <div>
             <div className="scoresTitle">Best Score</div>
-            <div>{bestScore == 0 ? "--" : bestScore}</div>
+            <div>{bestScore === 0 ? "--" : bestScore}</div>
           </div>
         </div>
       </div>
