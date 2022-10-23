@@ -13,7 +13,6 @@ export const checkGameWon = (board, value) => {
 };
 
 export const checkGameFinished = (board) => {
-  // let isFinished = false;
   if (getEmptyTiles(board).length !== 0) return false;
   const _oldBoard = cloneDeep(board);
   console.log([].concat(..._oldBoard).map((b) => b.value));
@@ -46,7 +45,6 @@ export const checkGameFinished = (board) => {
 };
 
 export const addTile = (board) => {
-  // let _board = board;
   const emptyTiles = getEmptyTiles(board);
   if (emptyTiles.length) {
     const idx = Math.floor(Math.random() * emptyTiles.length);

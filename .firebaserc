@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "common-bucket-3252b"
+  },
+  "targets": {
+    "common-bucket-3252b": {
+      "hosting": {
+        "game2048": [
+          "2048app"
+        ]
+      }
+    }
+  }
+}

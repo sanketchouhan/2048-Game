@@ -50,7 +50,7 @@
 .newGame {
   background-color: #3d2963;
   padding: 0 20px;
-  font-size: 18px;
+  font-size: 16px;
   align-self: normal;
   display: flex;
   align-items: center;
@@ -75,8 +75,10 @@
 }
 
 .newGame:hover {
-  background-color: #ed5471;
-  color: #3d2963;
+  /* background-color: #ed5471; */
+  background-color: rgba(255, 255, 255, 0.1);
+  /* color: #3d2963; */
+  color: #ffffff;
 }
 
 .board {
@@ -151,6 +153,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.footerIcon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 @keyframes newTile {
