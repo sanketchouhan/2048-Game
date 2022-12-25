@@ -1,0 +1,12 @@
+{
+  "projects": {},
+  "targets": {
+    "unauthenticatedapps": {
+      "hosting": {
+        "2048Game": [
+          "2048-game"
+        ]
+      }
+    }
+  }
+}
