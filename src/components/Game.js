@@ -1,14 +1,10 @@
 import React from "react";
 import { addTile, checkGameFinished, checkGameWon, slideTiles } from "../utils";
 import Board from "./Board";
-import {
-  IoChevronUpOutline,
-  IoChevronDownOutline,
-  IoChevronBackOutline,
-  IoChevronForwardOutline,
-} from "react-icons/io5";
 import { doc, updateDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/firebaseConfig";
+import Footer from "./Footer";
+import Header from "./Header";
 
 var cloneDeep = require("lodash.clonedeep");
 
@@ -27,7 +23,6 @@ function Game() {
 
   const handleKeyUp = React.useCallback(
     (e) => {
-      //   console.log(e);
       let newBoard = cloneDeep(board);
       if (e.code === "ArrowLeft") {
         let obj = slideTiles(newBoard, "left");
@@ -135,26 +130,7 @@ function Game() {
       onTouchMove={(e) => touchMoveEvent(e)}
       onTouchEnd={(e) => touchEndEvent()}
     >
-      <div className="titleDiv">
-        <span className="titleLine" />
-        <h2 className="title">2048</h2>
-      </div>
-      <div className="gameHeader">
-        <div className="newGame" onClick={() => resetGame()}>
-          New Game
-        </div>
-        {/* <div className="score">Score: {score}</div> */}
-        <div className="scoresDiv">
-          <div className="scoresDark">
-            <div className="scoresTitle">Score</div>
-            <div>{score}</div>
-          </div>
-          <div>
-            <div className="scoresTitle">Best Score</div>
-            <div>{bestScore === 0 ? "--" : bestScore}</div>
-          </div>
-        </div>
-      </div>
+      <Header score={score} bestScore={bestScore} resetGame={resetGame} />
       {gameWon ? (
         <img src={require(`../assets/2048.gif`)} alt="won" className="wonImg" />
       ) : gamefinish ? (
@@ -166,42 +142,7 @@ function Game() {
       ) : (
         <Board board={board} />
       )}
-      <div className="footer">
-        <div className="keys">
-          <div className="iconsDiv">
-            <div
-              className="footerIcon"
-              onClick={() => handleKeyUp({ code: "ArrowUp" })}
-            >
-              <IoChevronUpOutline size={24} />
-            </div>
-          </div>
-          <div className="iconsDiv">
-            <div
-              className="footerIcon"
-              onClick={() => handleKeyUp({ code: "ArrowLeft" })}
-            >
-              <IoChevronBackOutline size={24} />
-            </div>
-            <div
-              className="footerIcon"
-              onClick={() => handleKeyUp({ code: "ArrowDown" })}
-            >
-              <IoChevronDownOutline size={24} />
-            </div>
-            <div
-              className="footerIcon"
-              onClick={() => handleKeyUp({ code: "ArrowRight" })}
-            >
-              <IoChevronForwardOutline size={24} />
-            </div>
-          </div>
-        </div>
-        <div>
-          Join the numbers and get the{" "}
-          <span className="footerBold">2048 tile!</span>
-        </div>
-      </div>
+      <Footer handleKeyUp={handleKeyUp} />
     </div>
   );
 }

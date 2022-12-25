@@ -25,7 +25,6 @@
   padding: 0 20px;
   z-index: 99;
   background-color: #57407c;
-  /* position: relative; */
 }
 
 .titleLine {
@@ -36,7 +35,6 @@
   height: 2px;
   width: 100%;
   background-color: #3d2963;
-  /* z-index: ; */
 }
 
 .gameHeader {
@@ -57,6 +55,7 @@
   color: #ffffffa2;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .scoresDiv {
@@ -75,9 +74,7 @@
 }
 
 .newGame:hover {
-  /* background-color: #ed5471; */
   background-color: rgba(255, 255, 255, 0.1);
-  /* color: #3d2963; */
   color: #ffffff;
 }
 
@@ -86,10 +83,6 @@
   max-height: 400px;
   width: calc(100vw - 20px);
   height: calc(100vw - 20px);
-
-  /* background-color: #cdc1b5; */
-  /* border: 5px solid transparent; */
-
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
@@ -153,6 +146,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .footerIcon:hover {
